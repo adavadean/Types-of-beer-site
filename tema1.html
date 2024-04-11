@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<LINK rel="stylesheet" href="tema1.css" type="text/css">
+<html>
+<head>
+  <title>Berării din SUA</title>
+  <script>
+    var state = []; 
+    function verificaVarsta() 
+
+    {
+      var varsta = prompt("Te rog să introduci vârsta ta:");
+      if (varsta >= 18) 
+
+      { 
+        var afiseazaButton = document.getElementById("afiseaza-button");
+        afiseazaButton.style.display = "block";
+        var ascundeElemente = document.querySelectorAll(".ascunde");
+        for (var i = 0; i < ascundeElemente.length; i++) 
+        {
+          ascundeElemente[i].style.display = "block";
+      }
+      var butonFiltrare = document.getElementById("buton-filtrare");
+      butonFiltrare.style.display = "block";
+
+      var tipBerarieInput = document.getElementById("tip-berarie");
+      tipBerarieInput.style.display = "block";
+    }
+      else 
+      {
+        butonNU();
+      }
+      resetareElemente();
+    }
+    function ascundeToateElementele() 
+    {
+      var toateElementele = document.querySelectorAll(".ascunde");
+      for (var i = 0; i < toateElementele.length; i++) 
+      {
+        toateElementele[i].style.display = "none";
+  }
+
+}
+function ascundeListaBerarii() 
+{
+  var listaBerarii = document.querySelector("ul");
+  listaBerarii.style.display = "none";
+}
+    function butonNU()
+    {
+      alert("Nu ai vârsta legală pentru a vizualiza acest conținut.");
+      ascundeToateElementele();
+      ascundeListaBerarii();
+
+      var butonFiltrare = document.getElementById("buton-filtrare");
+      butonFiltrare.style.display = "none";
+
+      var tipBerarieInput = document.getElementById("tip-berarie");
+      tipBerarieInput.style.display = "none";
+
+      var rezultatFiltrare = document.getElementById("rezultat-filtrare");
+      rezultatFiltrare.innerHTML = "";
+      rezultatFiltrare.style.display = "none";
+    }
+
+    function afiseazaBerari() 
+    {
+      var loading = document.getElementById("loading");
+      loading.style.display = "block"; 
+      setTimeout(function () {
+      fetch("https://api.openbrewerydb.org/breweries")
+        .then(function(response) {
+          return response.json();
+        })
+        .then(function(data) {
+          loading.style.display = "none";
+
+          toateBerariile = data;
+
+          incarcaState();
+
+          var listaBerei = document.getElementById("lista-berei");
+          listaBerei.innerHTML = "";
+
+          for (var i = 0; i < data.length; i++) 
+          {
+            var bere = data[i];
+            var numeBere = bere.name;
+            var tipBere = bere.brewery_type;
+            var adresaBere = bere.street;
+
+            var elementBere = document.createElement("li");
+            elementBere.textContent = numeBere + " - " + tipBere + " - " + adresaBere;
+            listaBerei.appendChild(elementBere);
+          }
+        var afiseazaButton = document.getElementById("afiseaza-button");
+        afiseazaButton.style.display = "none";
+        });
+      }, 2000); 
+    }
+function afiseazaRezultatFiltrare(tipBere) 
+{
+  var berariFiltrati = toateBerariile.filter(function (bere) 
+  {
+    return bere.brewery_type.toLowerCase() === tipBere;
+  });
+
+  var rezultatFiltrare = document.getElementById("rezultat-filtrare");
+  rezultatFiltrare.innerHTML = ""; 
+
+  if (berariFiltrati.length > 0) {
+    rezultatFiltrare.innerHTML = "<h3>Rezultatul filtrării:</h3>";
+
+    var listaFiltrata = document.createElement("ul");
+    berariFiltrati.forEach(function (bere) {
+      var listItem = document.createElement("li");
+      listItem.textContent = bere.name;
+      listaFiltrata.appendChild(listItem);
+    });
+
+    rezultatFiltrare.appendChild(listaFiltrata);
+  } else {
+    rezultatFiltrare.innerHTML = "<p>Nicio berarie găsită cu tipul specificat!</p>";
+  }
+
+  rezultatFiltrare.style.display = "block"; 
+  
+}
+
+    function filtreazaBerari() 
+    {
+    var tipBerarieInput = document.getElementById("tip-berarie");
+    var tipBerarie = tipBerarieInput.value.toLowerCase();
+
+    if (tipBerarie === "closed" || tipBerarie === "micro" || tipBerarie === "large" || tipBerarie === "brewpub" || tipBerarie === "proprietor" || tipBerarie === "contract") 
+    {
+      tipBerarieInput.style.backgroundColor = "green"; 
+      afiseazaRezultatFiltrare(tipBerarie);
+  } else  
+  {
+      tipBerarieInput.style.backgroundColor = "red"; 
+      alert("Introduceți un tip de berărie valid: closed, micro, large, brewpub, proprietor sau contract!");
+  }
+}
+ 
+function incarcaState() 
+{
+  state = []; 
+
+for (var i = 0; i < toateBerariile.length; i++) 
+{
+  var stat = toateBerariile[i].state;
+
+  if (!state.includes(stat)) 
+  {
+    state.push(stat);
+  }
+}
+}
+
+function afiseazaState() 
+{
+  var listaState = document.getElementById("lista-state");
+  listaState.innerHTML = "";
+
+
+  state.forEach(function (stat) 
+  {
+    var listItem = document.createElement("li");
+    listItem.textContent = stat;
+    listaState.appendChild(listItem);
+  });
+
+  listaState.style.display = "block";
+}
+
+function sorteazaState() 
+{
+  state.sort(); 
+  afiseazaState();
+}
+function resetareElemente() {
+  
+  //var textFiltrare = document.getElementById("filtrare-container");
+  //textFiltrare.style.display = "none";
+
+
+  var listaBerei = document.getElementById("lista-berei");
+  listaBerei.innerHTML = "";
+
+
+  var rezultatFiltrare = document.getElementById("rezultat-filtrare");
+  rezultatFiltrare.innerHTML = "";
+  rezultatFiltrare.style.display = "none";
+
+  //var tipBerarieInput = document.getElementById("tip-berarie");
+  //tipBerarieInput.setAttribute("disabled", "disabled");
+
+
+  var listaState = document.getElementById("lista-state");
+  listaState.innerHTML = "";
+  listaState.style.display = "none";
+}
+
+
+  </script>
+</head>
+<body>
+  <h1>Confirmare Vârstă</h1>
+  <p>Declar că am împlinit vârsta de 18 ani.</p>
+  <button onclick="verificaVarsta()">Da</button>
+  <button onclick="butonNU()">Nu</button>
+  
+  <button id="afiseaza-button" class="ascunde" onclick="afiseazaBerari()">Afișează berării</button>
+  <div id="loading" style="display:none">Încărcare...</div>
+  
+  <h2 class="ascunde">Berării din SUA</h2>
+  <ul id="lista-berei" class="'ascunde"></ul>
+
+  <div id="filtrare-container">
+    <input type="text" id="tip-berarie" placeholder="Introduceți tipul de berărie">
+    <button id="buton-filtrare" onclick="filtreazaBerari()">Filtrare</button>
+  </div>
+  
+  <div id="rezultat-filtrare"></div>
+  <div id="stat-container" class="ascunde">
+    <button id="buton-stat" onclick="afiseazaState()">Filtrare după stat</button>
+    <button id="buton-sortare" onclick="sorteazaState()">Sortează</button>
+    <ul id="lista-state"></ul>
+  </div>
+</body>
+</html>

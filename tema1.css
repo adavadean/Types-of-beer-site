@@ -1,0 +1,169 @@
+
+body {
+  font-family: Arial, sans-serif;
+  text-align: center;
+  color:#fff;
+  background-image: url('background.jpg'); 
+  background-size: cover; 
+  background-repeat: no-repeat;
+}
+
+h1 {
+  color: #333;
+  margin-top: 50px;
+  font-size: 36px;
+}
+
+p {
+  color: #555;
+  font-size: 20px;
+}
+
+button {
+  background-color: #007BFF;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+h2 {
+  margin-top: 20px;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+li {
+  background-color: rgba(0, 0, 0, 0.7);
+      border: 1px solid #000;
+      margin: 5px 0;
+      padding: 10px;
+      font-size: 18px;
+}
+
+#afiseaza-button {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+#loading {
+  display: none;
+  text-align: center;
+  font-size: 20px;
+  color: #000;
+}
+
+#age-confirmation {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(0, 0, 0, 0.8);
+    padding: 20px;
+    border-radius: 10px;
+  }
+
+  #age-confirmation h2 {
+    font-size: 24px;
+  }
+
+  #age-confirmation button {
+    background-color: #007BFF;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 10px;
+  }
+
+  #age-confirmation button:hover {
+    background-color: #0056b3;
+  }
+
+  .ascunde {
+    display: none;
+  }
+
+  #filtrare-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+  }
+  
+  #tip-berarie {
+    padding: 10px;
+    font-size: 16px;
+    border: 2px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  #buton-filtrare {
+    background-color: #007BFF;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-left: 10px;
+  }
+  
+  #rezultat-filtrare {
+    display: none;
+    margin-top: 20px;
+    text-align: center;
+    font-size: 18px;
+    color: #333;
+  }
+  
+  #rezultat-filtrare ul {
+    list-style-type: none;
+  }
+
+#buton-stat {
+  background-color: #3498db; 
+  color: #fff; 
+  padding: 10px 20px; 
+  border: none; 
+  border-radius: 5px; 
+  cursor: pointer; 
+  margin-right: 10px; 
+}
+
+#buton-sortare {
+  background-color: #2ecc71; 
+  color: #fff; 
+  padding: 10px 20px; 
+  border: none; 
+  border-radius: 5px; 
+  cursor: pointer; 
+}
+#tip-berarie {
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+#lista-state {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+
+#lista-state li {
+  margin-bottom: 5px;
+}
+
+
